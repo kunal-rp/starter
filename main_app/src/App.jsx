@@ -1,0 +1,4 @@
+import React from "react";
+export default function App(props) {
+  return <h1 className="text-3xl text-blue-400">Hello React</h1>;
+}
