@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useRecoilState } from "recoil";
+import { Link } from "react-router-dom";
 import { headerState } from "../atom/atoms.jsx";
 import {
 	UserIcon,
@@ -11,10 +12,14 @@ import {
 import { HEADERS } from "../constants.jsx";
 
 export default function Header(props) {
-	const [selectedHeader, setSelectedHeader] = useRecoilState(headerState);
+	const [selectedHeader] = useRecoilState(headerState);
+
+	function firstCap(word) {
+		return word.charAt(0).toUpperCase() + word.slice(1);
+	}
 
 	useEffect(() => {
-		document.title = "Materri : " + selectedHeader;
+		document.title = firstCap(selectedHeader);
 	}, [selectedHeader]);
 
 	return (
@@ -34,17 +39,17 @@ export default function Header(props) {
 			<div className="m-auto" />
 			<div className="flex flex-row space-x-10">
 				{HEADERS.map((headerText) => (
-					<button
+					<Link
 						className={
 							"text-lg " +
 							(headerText === selectedHeader
 								? "underline text-secondary"
 								: "")
 						}
-						onClick={() => setSelectedHeader(headerText)}
+						to={headerText.toLowerCase()}
 					>
-						{headerText}
-					</button>
+						{firstCap(headerText)}
+					</Link>
 				))}
 			</div>
 			<div className="m-auto" />
