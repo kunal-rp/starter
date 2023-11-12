@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect } from "react";
+import { useRecoilState } from "recoil";
+import { headerState } from "../atom/atoms.jsx";
 import {
 	UserIcon,
 	ChevronDownIcon,
@@ -6,13 +8,14 @@ import {
 	ArrowLeftOnRectangleIcon,
 } from "@heroicons/react/24/solid";
 
+import { HEADERS } from "../constants.jsx";
+
 export default function Header(props) {
-	const HEADERS = ["Product", "Material", "Suppliers"];
-	const [headerIndex, setHeaderIndex] = useState(0);
+	const [selectedHeader, setSelectedHeader] = useRecoilState(headerState);
 
 	useEffect(() => {
-		document.title = "Materri : " + HEADERS[headerIndex];
-	}, [headerIndex]);
+		document.title = "Materri : " + selectedHeader;
+	}, [selectedHeader]);
 
 	return (
 		<div className="h-fit max-w-full flex flex-row ml-[5%] mr-[5%] items-center justify-center">
@@ -30,15 +33,15 @@ export default function Header(props) {
 			</button>
 			<div className="m-auto" />
 			<div className="flex flex-row space-x-10">
-				{HEADERS.map((headerText, index) => (
+				{HEADERS.map((headerText) => (
 					<button
 						className={
 							"text-lg " +
-							(index === headerIndex
+							(headerText === selectedHeader
 								? "underline text-secondary"
 								: "")
 						}
-						onClick={() => setHeaderIndex(index)}
+						onClick={() => setSelectedHeader(headerText)}
 					>
 						{headerText}
 					</button>
