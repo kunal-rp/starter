@@ -8,6 +8,7 @@ export default function Header(props) {
 				height={300}
 				src="/materri_green.png"
 				className="max-h-[30px] w-auto"
+				alt="Green Materri logo"
 			/>
 			<div className="m-auto" />
 			<button className="text-black"> Contact Us </button>

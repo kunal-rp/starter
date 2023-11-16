@@ -1,1 +1,1 @@
-export const HEADERS = ["product", "material", "suppliers"];
+export const HEADERS = ["product", "material", "logistics"];

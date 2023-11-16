@@ -8,6 +8,7 @@ export default function Header(props) {
 				height={300}
 				src="/logo_white.png"
 				className="max-h-[20px] w-auto"
+				alt="White Materri logo"
 			/>
 			<div className="m-auto" />
 			<button className="text-sm"> Materri LLC, 2023 </button>

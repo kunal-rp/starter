@@ -32,7 +32,8 @@ export default function Features(props) {
 						Product Technical Specs
 					</h3>
 					<span className="text-xl">
-						Upload existing specs as your project's starting point.
+						Upload existing specs as your project&apos;s starting
+						point.
 					</span>
 					<span className="text-xl">
 						Export all finished product designs, material
@@ -54,7 +55,8 @@ export default function Features(props) {
 						during the Product Design Process
 					</h3>
 					<span className="text-xl">
-						Gain insights into material's per functionality & style.
+						Gain insights into material&apos;s per functionality &
+						style.
 					</span>
 					<span className="text-xl">
 						Enjoy access to an every-growing database, with a focus
@@ -72,7 +74,7 @@ export default function Features(props) {
 				<div className="w-[90%] md:w-[50%] rounded-xl flex flex-col p-10 space-y-5 md:space-y-10 text-left">
 					<h3 className="text-4xl">
 						Manufacturing logistics is no longer an afterthough,
-						it's{" "}
+						it&apos;s{" "}
 						<span className="underline decoration-primary text-primary">
 							an added benifit.
 						</span>

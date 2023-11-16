@@ -29,6 +29,7 @@ export default function Hero(props) {
 					height={512}
 					src="/laptop.png"
 					className="text-white max-h-[20px] w-auto"
+					alt="Laptop image"
 				/>
 			</div>
 		</Section>
