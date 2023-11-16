@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import Image from "next/image";
 
 import Section from "./Section";
 import { useIsVisible } from "../util/useIsVisible";
@@ -23,7 +24,15 @@ export default function Features(props) {
 				ref={section1Ref}
 				className="flex flex-col md:flex-row w-full md:h-screen delay-100"
 			>
-				<div className="w-[90%] md:w-[50%] h-[50%] rounded-xl bg-secondary p-10" />
+				<div className="w-[90%] md:w-[50%] ">
+					<Image
+						width={512}
+						height={512}
+						src="/product_design.png"
+						className="w-[150px] md:w-[300px] h-auto m-auto"
+						alt="Product Design Clipart"
+					/>
+				</div>
 				<div className="w-[90%] md:w-[50%] rounded-xl flex flex-col p-10 space-y-5 md:space-y-10 text-left">
 					<h3 className="text-4xl">
 						<span className="underline decoration-primary text-primary">
@@ -63,14 +72,30 @@ export default function Features(props) {
 						on sustainable green materials.
 					</span>
 				</div>
-				<div className="w-[90%] md:w-[50%] h-[50%] rounded-xl bg-secondary p-10" />
+				<div className="w-[90%] md:w-[50%] ">
+					<Image
+						width={512}
+						height={512}
+						src="/chart.png"
+						className="w-[150px] md:w-[300px] h-auto m-auto"
+						alt="Chart Clipart"
+					/>
+				</div>
 			</Section>
 
 			<Section
 				ref={section3Ref}
 				className="flex flex-col md:flex-row w-full md:h-screen delay-100"
 			>
-				<div className="w-[90%] md:w-[50%] h-[90%] md:h-[50%] rounded-xl bg-secondary p-10" />
+				<div className="w-[90%] md:w-[50%] ">
+					<Image
+						width={512}
+						height={512}
+						src="/logistics.png"
+						className="w-[150px] md:w-[300px] h-auto m-auto"
+						alt="Globe Logistics Clipart"
+					/>
+				</div>
 				<div className="w-[90%] md:w-[50%] rounded-xl flex flex-col p-10 space-y-5 md:space-y-10 text-left">
 					<h3 className="text-4xl">
 						Manufacturing logistics is no longer an afterthough,

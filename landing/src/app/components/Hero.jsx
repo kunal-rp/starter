@@ -21,9 +21,9 @@ export default function Hero(props) {
 				development while keeping continuity & logistics in focus.
 			</h3>
 			<div className="flex flex-row bg-primary p-2 w-fit rounded-xl items-center space-x-2">
-				<h3 className="w-fit text-white text-xl rounded-2xl ">
+				<button className="w-fit text-white text-xl rounded-2xl ">
 					Request a Demo
-				</h3>
+				</button>
 				<Image
 					width={512}
 					height={512}

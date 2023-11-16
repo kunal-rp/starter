@@ -6,7 +6,7 @@ const Section = forwardRef((props, ref) => {
 	const isVisible = useIsVisible(ref);
 
 	const BASE_CLASSNAME =
-		"w-full h-full min-h-full md:min-h-[70%] text-black text-center items-center space-y-10 md:pr-[10%] md:pl-[10%]";
+		"w-full h-fit min-h-full md:min-h-[60%] text-black text-center items-center space-y-10 md:pr-[10%] md:pl-[10%]";
 	const FADE_CLASSNAME = "transition-opacity ease-in duration-700";
 
 	return (
