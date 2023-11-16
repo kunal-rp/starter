@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Header(props) {
 	return (
-		<div className="flex flex-row w-full p-10 bg-primary m-10 text-white">
+		<div className="flex flex-row w-full p-10 bg-primary text-white">
 			<Image
 				width={600}
 				height={300}

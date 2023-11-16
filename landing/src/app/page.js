@@ -9,11 +9,13 @@ import Footer from "./components/Footer";
 
 export default function Home() {
   return (
-    <main className="flex flex-col items-center space-y-[5%] bg-white">
-      <Header />
-      <Hero />
-      <Features />
-      <Footer />
-    </main>
+    <div className="bg-white relative z-auto w-full min-h-full">
+      <Header className="fixed top-5 z-50" />
+      <main className="relative z-10 ">
+        <Hero className="pt-28" />
+        <Features />
+        <Footer />
+      </main>
+    </div>
   );
 }

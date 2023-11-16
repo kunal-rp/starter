@@ -11,7 +11,7 @@ export default function Features(props) {
 
 	function createSubSection(el1, el2) {
 		return (
-			<Section className="flex flex-col md:flex-row w-full md:h-screen">
+			<Section className="flex flex-col md:flex-row w-full md:h-[90%]]">
 				{el1}
 				{el2}
 			</Section>
