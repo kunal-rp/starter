@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { Link } from "react-router-dom";
-import { headerState } from "../atom/atoms.jsx";
+import { headerState, projectModalityState } from "../atom/atoms.jsx";
 import {
 	UserIcon,
 	ChevronDownIcon,
@@ -13,6 +13,9 @@ import { HEADERS } from "../constants.jsx";
 
 export default function Header(props) {
 	const [selectedHeader] = useRecoilState(headerState);
+
+	const [projectModality, setProjectModality] =
+		useRecoilState(projectModalityState);
 
 	function firstCap(word) {
 		return word.charAt(0).toUpperCase() + word.slice(1);
@@ -31,7 +34,10 @@ export default function Header(props) {
 					<h3 className="text-sm">Organization</h3>
 				</div>
 			</div>
-			<button className="flex flex-row border border-primary rounded items-center p-1 space-x-2 ml-10">
+			<button
+				className="flex flex-row border border-primary rounded items-center p-1 space-x-2 ml-10"
+				onClick={() => setProjectModality(true)}
+			>
 				<CircleStackIcon className="w-[20px] h-[20px]" />
 				<h1 className="text-md">Project Name</h1>
 				<ChevronDownIcon className="w-[15px] h-[15px]" />
