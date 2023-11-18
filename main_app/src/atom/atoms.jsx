@@ -1,10 +1,10 @@
 import { atom } from "recoil";
 
-import { HEADERS } from "../constants.jsx";
+import { HEADERS, PROJECTS } from "../constants.jsx";
 
 export const projectIdState = atom({
   key: "project_id_state",
-  default: null,
+  default: PROJECTS[0].id,
 });
 
 export const projectModalityState = atom({

@@ -9,10 +9,10 @@ import Footer from "./components/Footer";
 
 export default function Home() {
   return (
-    <div className="bg-white relative z-auto w-full min-h-full">
-      <Header />
-      <main className="relative ">
-        <Hero className="pt-28" />
+    <div className="bg-white w-full min-h-full">
+      <Header className="sticky top-10 z-20" />
+      <main className="z-10">
+        <Hero className="pt-[30%] md:pt-[20%] z-0" />
         <Features />
         <Footer />
       </main>

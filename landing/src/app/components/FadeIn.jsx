@@ -10,7 +10,7 @@ const FadeIn = forwardRef((props, ref) => {
 		if (isVisible) setHasRendered(true);
 	}, [isVisible]);
 
-	const BASE_CLASSNAME = "w-full h-full";
+	const BASE_CLASSNAME = "z-0";
 	const FADE_CLASSNAME = "transition-opacity ease-in duration-700";
 
 	function determineRender() {

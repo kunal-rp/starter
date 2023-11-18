@@ -11,7 +11,8 @@ export default function Hero(props) {
 		<Section
 			ref={ref}
 			className={
-				props.className + " flex flex-col h-full space-y-10 pb-10"
+				props.className +
+				" flex flex-col h-screen p-5 space-y-10 md:space-y-20"
 			}
 		>
 			<h1 className="text-6xl font-medium text-center">
@@ -25,18 +26,6 @@ export default function Hero(props) {
 				Create products with materials as the foundation. Drive product
 				development while keeping continuity & logistics in focus.
 			</h3>
-			<button className="flex flex-row bg-primary p-2 w-fit rounded-xl items-center space-x-2  transition transition-shadow shadow-none hover:shadow-2xl">
-				<span className="w-fit text-white text-xl rounded-2xl ">
-					Request a Demo
-				</span>
-				<Image
-					width={512}
-					height={512}
-					src="/laptop.png"
-					className="text-white max-h-[20px] w-auto"
-					alt="Laptop image"
-				/>
-			</button>
 		</Section>
 	);
 }
