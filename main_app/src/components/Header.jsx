@@ -23,7 +23,7 @@ export default function Header(props) {
 	}, [selectedHeader]);
 
 	return (
-		<div className="h-fit max-w-full flex flex-row ml-[5%] mr-[5%] items-center justify-center">
+		<div className="h-fit max-w-full flex flex-row m-5 items-center justify-center shadow-xl p-3 rounded-xl ">
 			<div className="flex flex-row items-center space-x-1">
 				<UserIcon className="w-[30px] h-[30px] rounded text-primary" />
 				<div className="flex flex-col justify-center">

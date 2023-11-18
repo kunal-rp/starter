@@ -17,9 +17,9 @@ export default function Layout(props) {
 	}, [location]);
 
 	return (
-		<div className="w-full h-full flex flex-col p-5 space-y-[2%]">
+		<div className="w-full min-h-full h-full flex flex-col p-5 space-y-[2%] bg-[#FFFFFF]">
 			<Header />
-			<div className="w-full flex flex-row">
+			<div className="w-full h-full flex flex-row p-1 rounded-xl shadow-xl">
 				<Outlet />
 			</div>
 		</div>
