@@ -1,4 +1,12 @@
+export const FETCH_STATES = {
+	IN_PROGRESS: "IN_PROGRESS",
+	SUCCESS: "SUCCESS",
+	FAIL: "FAIL",
+};
+
 export const HEADERS = ["product", "material", "logistics"];
+
+export const PROJECT_URL = process.env.SERVER_URL + "/projects";
 
 export const PROJECTS = [
 	{

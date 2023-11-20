@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const Dotenv = require("dotenv-webpack");
 
 module.exports = {
   output: {
@@ -12,11 +13,14 @@ module.exports = {
       template: "public/index.html", // to import index.html file inside index.js
       favicon: "./public/favicon.ico",
     }),
+    new Dotenv(),
   ],
   devServer: {
     port: 3030, // you can change the port
   },
-  devServer: { historyApiFallback: true },
+  devServer: {
+    historyApiFallback: true,
+  },
   module: {
     rules: [
       {

@@ -2,25 +2,43 @@ import React, { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { Link } from "react-router-dom";
 import {
-	headerState,
-	projectIdState,
-	projectModalityState,
-} from "../atom/atoms.jsx";
-import {
 	UserIcon,
 	ChevronDownIcon,
 	CircleStackIcon,
 	ArrowLeftOnRectangleIcon,
 } from "@heroicons/react/24/solid";
 
-import { HEADERS, PROJECTS } from "../constants.jsx";
+import {
+	headerState,
+	projectIdState,
+	projectDataState,
+	projectModalityState,
+} from "../atom/atoms.jsx";
+import { useGetData } from "../util/useGetData.jsx";
+import { HEADERS, PROJECT_URL } from "../constants.jsx";
+import LoadComponent from "./LoadComponent.jsx";
 
 export default function Header(props) {
 	const [selectedHeader] = useRecoilState(headerState);
 
 	const [projectModality, setProjectModality] =
 		useRecoilState(projectModalityState);
-	const [projectId] = useRecoilState(projectIdState);
+
+	const [projectId, setProjectId] = useRecoilState(projectIdState);
+	const [projectData, setProjectData] = useRecoilState(projectDataState);
+	const [fetchProjectDataState, fetch] = useGetData({
+		url: PROJECT_URL,
+		onFail: (error) => console.log(error),
+		onSuccess: (data) => {
+			setProjectData(data.projects);
+			setProjectId(data.selected_project_id);
+		},
+	});
+
+	// On Header initial render, fetch and store project data globally
+	useEffect(() => {
+		fetch();
+	}, []);
 
 	function firstCap(originalWord) {
 		return originalWord
@@ -31,13 +49,15 @@ export default function Header(props) {
 
 	useEffect(() => {
 		document.title =
-			firstCap(getCurrentProject().title) +
-			": " +
-			firstCap(selectedHeader);
-	}, [selectedHeader, getCurrentProject()]);
+			(getCurrentProject()
+				? firstCap(getCurrentProject().title) + ": "
+				: "") + firstCap(selectedHeader);
+	}, [selectedHeader, projectId, projectData]);
 
 	function getCurrentProject() {
-		return PROJECTS.filter((project) => project.id == projectId)[0];
+		return projectData && projectId
+			? projectData.filter((project) => project.id == projectId)[0]
+			: null;
 	}
 
 	return (
@@ -49,14 +69,23 @@ export default function Header(props) {
 					<h3 className="text-sm">Organization</h3>
 				</div>
 			</div>
-			<button
-				className="flex flex-row border border-primary rounded items-center p-1 space-x-2 ml-10"
-				onClick={() => setProjectModality(true)}
+			<LoadComponent
+				success={projectId && projectData}
+				className="w-[150px] h-full "
 			>
-				<CircleStackIcon className="w-[20px] h-[20px]" />
-				<h1 className="text-md">{getCurrentProject()["title"]}</h1>
-				<ChevronDownIcon className="w-[15px] h-[15px]" />
-			</button>
+				<button
+					className="flex flex-row border border-primary rounded items-center p-1 space-x-2 ml-10"
+					onClick={() => setProjectModality(true)}
+				>
+					<CircleStackIcon className="w-[20px] h-[20px]" />
+					<h1 className="text-md">
+						{getCurrentProject()
+							? getCurrentProject()["title"]
+							: null}
+					</h1>
+					<ChevronDownIcon className="w-[15px] h-[15px]" />
+				</button>
+			</LoadComponent>
 			<div className="m-auto" />
 			<div className="flex flex-row space-x-10">
 				{HEADERS.map((headerText) => (

@@ -1,14 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
 
-import { projectIdState, projectModalityState } from "../atom/atoms.jsx";
-import { PROJECTS } from "../constants.jsx";
+import LoadComponent from "./LoadComponent.jsx";
+import {
+	projectIdState,
+	projectDataState,
+	projectModalityState,
+} from "../atom/atoms.jsx";
+import { PROJECT_URL } from "../constants.jsx";
+import { useGetData } from "../util/useGetData.jsx";
 
 export default function ProjectModality(props) {
 	const [projectModality, setProjectModality] =
 		useRecoilState(projectModalityState);
 
 	const [projectId, setProjectId] = useRecoilState(projectIdState);
+
+	const [projectData] = useRecoilState(projectDataState);
+	const [fetchProjectDataState, fetch] = useGetData({
+		url: PROJECT_URL,
+		onFail: (error) => console.log(error),
+		onSuccess: (data) => setProjectData(data.projects),
+	});
+
+	useEffect(() => {
+		console.log(projectData);
+	}, [projectData, projectId]);
 
 	return (
 		<>
@@ -22,18 +39,20 @@ export default function ProjectModality(props) {
 						<span className="w-1/2">ID</span>
 						<span className="w-1/2">Name</span>
 					</div>
-					{PROJECTS.map((project) => (
-						<div
-							className="flex flex-row w-full text-center hover:bg-gray-300"
-							onClick={() => {
-								setProjectId(project.id);
-								setProjectModality(false);
-							}}
-						>
-							<span className="w-1/2">{project.id}</span>
-							<span className="w-1/2">{project.title}</span>
-						</div>
-					))}
+					<LoadComponent success={projectId}>
+						{projectData.map((project) => (
+							<div
+								className="flex flex-row w-full text-center hover:bg-gray-300"
+								onClick={() => {
+									setProjectId(project.id);
+									setProjectModality(false);
+								}}
+							>
+								<span className="w-1/2">{project.id}</span>
+								<span className="w-1/2">{project.title}</span>
+							</div>
+						))}
+					</LoadComponent>
 				</div>
 			</div>
 			<div
