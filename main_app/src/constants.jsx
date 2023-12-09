@@ -4,9 +4,18 @@ export const FETCH_STATES = {
 	FAIL: "FAIL",
 };
 
+export const POST_STATES = {
+	INACTIVE: "INACTIVE",
+	IN_PROGRESS: "IN_PROGRESS",
+	SUCCESS: "SUCCESS",
+	FAIL: "FAIL",
+};
+
 export const HEADERS = ["product", "material", "logistics"];
 
 export const PROJECT_URL = process.env.SERVER_URL + "/projects";
+export const UPLOAD_URL = process.env.SERVER_URL + "/upload";
+export const IMAGE_URL = process.env.SERVER_URL + "/image";
 
 export const PROJECTS = [
 	{
