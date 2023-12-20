@@ -1,6 +1,8 @@
 const fs = require("fs");
 const express = require("express");
 const fileUpload = require("express-fileupload");
+const cookieParser = require("cookie-parser");
+
 const app = express();
 const port = 4000;
 
@@ -31,6 +33,8 @@ app.use(fileUpload());
 
 app.use(express.static("public"));
 
+app.use(cookieParser());
+
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
@@ -56,6 +60,12 @@ app.post("/upload", (req, res) => {
 
   // All good
   res.json({ status: "image_loaded" });
+});
+
+app.post("/login", (req, res) => {
+  console.log("login attempt");
+  console.log(req.cookies);
+  res.json({ status: "logged in" });
 });
 
 app.get("/image", (req, res) => {
