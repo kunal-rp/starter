@@ -4,8 +4,8 @@ import "./globals.css";
 const openSans = Open_Sans({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Materri",
-  description: "Material-driven product design platform",
+  title: "ACME Startup",
+  description: "Test Startup App",
 };
 
 export default function RootLayout({ children }) {

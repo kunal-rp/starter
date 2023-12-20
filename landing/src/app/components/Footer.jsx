@@ -7,11 +7,11 @@ export default function Header(props) {
 				width={600}
 				height={300}
 				src="/logo_white.png"
-				className="max-h-[20px] w-auto"
-				alt="White Materri logo"
+				className="max-h-[50px] w-auto"
+				alt="White ACME Logo"
 			/>
 			<div className="m-auto" />
-			<button className="text-sm"> Materri LLC, 2023 </button>
+			<button className="text-sm"> ACME LLC, 2023 </button>
 		</div>
 	);
 }

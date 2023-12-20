@@ -1,10 +1,14 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
+
 import Image from "next/image";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 import FadeIn from "./FadeIn.jsx";
 
 export default function Header(props) {
 	const ref = useRef();
+
+	const { data: session } = useSession();
 
 	return (
 		<FadeIn
@@ -18,22 +22,16 @@ export default function Header(props) {
 				<Image
 					width={1500}
 					height={300}
-					src="/materri_green.png"
-					className="max-h-[30px] w-auto"
-					alt="Green Materri logo"
+					src="/logo.png"
+					className="max-h-[50px] w-auto"
+					alt="ACME logo"
 				/>
 				<div className="m-auto" />
-				<button className="flex flex-row bg-primary p-1 w-fit rounded-xl items-center space-x-1 ">
-					<span className="w-fit text-white text-md rounded-xl ">
-						Request a Demo
-					</span>
-					<Image
-						width={512}
-						height={512}
-						src="/laptop.png"
-						className="text-white max-h-[20px] w-auto"
-						alt="Laptop image"
-					/>
+				<button
+					className="flex flex-row bg-secondary p-2 w-fit rounded-xl items-center mr-3 "
+					onClick={() => (session ? signOut() : signIn())}
+				>
+					{session ? session.user.name + " Logout" : "Login"}
 				</button>
 			</div>
 		</FadeIn>
