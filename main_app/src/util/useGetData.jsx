@@ -8,7 +8,7 @@ export function useGetData(props) {
 
   function fetchData() {
     setState(FETCH_STATES.IN_PROGRESS);
-    fetch(props.url)
+    fetch(props.url, { credentials: "include" })
       .then((response) => response.json())
       .then((data) => {
         setState(FETCH_STATES.SUCCESS);

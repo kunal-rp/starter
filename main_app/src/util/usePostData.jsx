@@ -10,6 +10,7 @@ async function makePostDataCall(url = "", data = {}, onFail, onSuccess) {
   const response = await fetch(url, {
     method: "POST",
     body: data,
+    credentials: "include",
   });
   return response.json().then((responseData) => onSuccess(responseData)); // parses JSON response into native JavaScript objects
 }

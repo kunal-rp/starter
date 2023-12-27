@@ -1,14 +1,16 @@
 import { useRef, useEffect } from "react";
-
+import Link from "next/link";
 import Image from "next/image";
-import { useSession, signIn, signOut } from "next-auth/react";
 
 import FadeIn from "./FadeIn.jsx";
+import useUser from "../util/useUser.jsx";
 
 export default function Header(props) {
 	const ref = useRef();
 
-	const { data: session } = useSession();
+	const [user, fetchUser] = useUser();
+
+	useEffect(() => fetchUser(), []);
 
 	return (
 		<FadeIn
@@ -18,7 +20,7 @@ export default function Header(props) {
 			}
 			stopAfterInitialRender={true}
 		>
-			<div className="flex flex-row p-3 md:ml-20 md:mr-20 rounded-xl shadow-xl justify-center ">
+			<div className="flex flex-row p-3 md:ml-20 md:mr-20 rounded-xl shadow-xl justify-between items-center max-h-20px">
 				<Image
 					width={1500}
 					height={300}
@@ -26,13 +28,20 @@ export default function Header(props) {
 					className="max-h-[50px] w-auto"
 					alt="ACME logo"
 				/>
-				<div className="m-auto" />
-				<button
-					className="flex flex-row bg-secondary p-2 w-fit rounded-xl items-center mr-3 "
-					onClick={() => (session ? signOut() : signIn())}
-				>
-					{session ? session.user.name + " Logout" : "Login"}
-				</button>
+				<div className="items-center" />
+				{user ? (
+					<div className="flex flex-row h-fit bg-primary p-2 rounded-md text-white items-center space-x-5">
+						<span>Goto App</span>
+						<img src={user.picture} className="h-[50px]" />
+					</div>
+				) : (
+					<Link
+						href="/login"
+						className="flex flex-row bg-secondary p-2 w-fit rounded-xl items-center mr-3 "
+					>
+						Login
+					</Link>
+				)}
 			</div>
 		</FadeIn>
 	);
