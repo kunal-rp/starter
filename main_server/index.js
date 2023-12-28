@@ -36,6 +36,7 @@ app.get("/image", IMAGE_ROUTE.imageRoute);
 app.post("/upload", IMAGE_ROUTE.uploadImageRoute);
 
 app.post("/login", AUTH_ROUTE.loginRoute);
+app.get("/logout", AUTH_ROUTE.logoutRoute);
 app.get("/refresh", AUTH_ROUTE.refreshRoute);
 
 app.get("/", (req, res) => {

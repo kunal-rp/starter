@@ -30,13 +30,15 @@ export default function Header(props) {
 				/>
 				<div className="items-center" />
 				{user ? (
-					<div className="flex flex-row h-fit bg-primary p-2 rounded-md text-white items-center space-x-5">
-						<span>Goto App</span>
-						<img
-							src={user.picture}
-							className="h-[30px] rounded-2xl"
-						/>
-					</div>
+					<a href={process.env.NEXT_PUBLIC_MAIN_APP_URL}>
+						<div className="flex flex-row h-fit bg-primary p-2 rounded-md text-white items-center space-x-5">
+							<span>Goto App</span>
+							<img
+								src={user.picture}
+								className="h-[30px] rounded-2xl"
+							/>
+						</div>
+					</a>
 				) : (
 					<Link
 						href="/login"

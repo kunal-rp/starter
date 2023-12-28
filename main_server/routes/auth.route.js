@@ -31,6 +31,11 @@ const loginRoute = (req, res) => {
 	});
 };
 
+const logoutRoute = (req, res) => {
+	res.clearCookie(JWT_CONFIG.JWT_REFRESH_COOKIE_NAME);
+	res.status(200).json({});
+};
+
 const refreshRoute = (req, res) => {
 	var refreshCookie = req.cookies[JWT_CONFIG.JWT_REFRESH_COOKIE_NAME];
 
@@ -103,4 +108,4 @@ function makeGoogleSsoCall(accessToken, callback) {
 		});
 }
 
-module.exports = { loginRoute, refreshRoute };
+module.exports = { loginRoute, logoutRoute, refreshRoute };

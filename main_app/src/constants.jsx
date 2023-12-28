@@ -16,6 +16,8 @@ export const HEADERS = ["product", "material", "logistics"];
 export const PROJECT_URL = process.env.SERVER_URL + "/projects";
 export const UPLOAD_URL = process.env.SERVER_URL + "/upload";
 export const IMAGE_URL = process.env.SERVER_URL + "/image";
+export const REFRESH_URL = process.env.SERVER_URL + "/refresh";
+export const LOGOUT_URL = process.env.SERVER_URL + "/logout";
 
 export const PROJECTS = [
 	{

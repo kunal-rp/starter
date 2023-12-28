@@ -15,7 +15,7 @@ import {
 	projectModalityState,
 } from "../atom/atoms.jsx";
 import { useGetData } from "../util/useGetData.jsx";
-import { HEADERS, PROJECT_URL } from "../constants.jsx";
+import { HEADERS, PROJECT_URL, LOGOUT_URL } from "../constants.jsx";
 import LoadComponent from "./LoadComponent.jsx";
 
 export default function Header(props) {
@@ -23,6 +23,20 @@ export default function Header(props) {
 
 	const [projectModality, setProjectModality] =
 		useRecoilState(projectModalityState);
+
+	//logout
+
+	const [fetchLogoutState, fetchLogout] = useGetData({
+		url: LOGOUT_URL,
+		onFail: (error) => console.log(error),
+		onSuccess: (data) => {},
+	});
+
+	useEffect(() => {
+		console.log(fetchLogoutState);
+		if (fetchLogoutState === "SUCCESS")
+			window.location.replace(process.env.LANDING_URL);
+	}, [fetchLogoutState]);
 
 	const [projectId, setProjectId] = useRecoilState(projectIdState);
 	const [projectData, setProjectData] = useRecoilState(projectDataState);
@@ -103,7 +117,10 @@ export default function Header(props) {
 				))}
 			</div>
 			<div className="m-auto" />
-			<button className="flex flex-row space-x-1 items-center">
+			<button
+				className="flex flex-row space-x-1 items-center"
+				onClick={() => fetchLogout()}
+			>
 				<h1 className="text-lg">Logout</h1>
 				<ArrowLeftOnRectangleIcon className="w-[20px] h-[20px]" />
 			</button>

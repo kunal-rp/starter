@@ -5,6 +5,7 @@ import { useRecoilState } from "recoil";
 
 import { headerState, projectModalityState } from "../atom/atoms.jsx";
 import { HEADERS } from "../constants.jsx";
+import PrivateRouteWrapper from "./PrivateRouteWrapper.jsx";
 
 import ProjectModality from "./ProjectModality.jsx";
 
@@ -22,12 +23,14 @@ export default function Layout(props) {
 	return (
 		<>
 			{projectModality ? <ProjectModality /> : null}
-			<div className="w-full min-h-full h-full flex flex-col p-5 space-y-[2%] bg-[#FFFFFF]">
-				<Header />
-				<div className="w-full h-full flex flex-row p-1 rounded-xl shadow-xl">
-					<Outlet />
+			<PrivateRouteWrapper>
+				<div className="w-full min-h-full h-full flex flex-col p-5 space-y-[2%] bg-[#FFFFFF]">
+					<Header />
+					<div className="w-full h-full flex flex-row p-1 rounded-xl shadow-xl">
+						<Outlet />
+					</div>
 				</div>
-			</div>
+			</PrivateRouteWrapper>
 		</>
 	);
 }

@@ -21,3 +21,8 @@ export const headerState = atom({
   key: "header_state", // unique ID (with respect to other atoms/selectors)
   default: HEADERS[0],
 });
+
+export const acmeAccessTokenState = atom({
+  key: "acmeAccessTokenState",
+  default: null,
+});
