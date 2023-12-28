@@ -11,25 +11,63 @@ const loginRoute = (req, res) => {
 	}
 
 	makeGoogleSsoCall(req.body.googleAccessToken, (profile, err) => {
-		console.log("google sso profile", profile, err);
 		if (err) {
 			res.status(500).send();
 			return;
 		}
 
-		jwt.sign(profile, process.env.JWT_SECRET, (err, token) => {
+		jwt.sign(profile, process.env.JWT_REFRESH_SECRET, (err, token) => {
 			if (err) {
 				res.status(500).send();
 				return;
 			}
-			res.cookie(JWT_CONFIG.JWT_COOKIE_NAME, token, {
+			res.cookie(JWT_CONFIG.JWT_REFRESH_COOKIE_NAME, token, {
 				maxAge: 900000,
 				httpOnly: true,
 				Path: "/",
 			});
-			res.status(200).send();
+			res.status(200).send("login successful");
 		});
 	});
+};
+
+const refreshRoute = (req, res) => {
+	var refreshCookie = req.cookies[JWT_CONFIG.JWT_REFRESH_COOKIE_NAME];
+
+	var verifyRefresh = (callback) => {
+		jwt.verify(
+			refreshCookie,
+			process.env.JWT_REFRESH_SECRET,
+			(err, decoded) => {
+				if (err) {
+					res.status(422).send("Invalid Refresh");
+				} else {
+					callback(decoded);
+				}
+			},
+		);
+	};
+
+	var createAccessToken = (decodedRefresh, callback) => {
+		jwt.sign(
+			decodedRefresh,
+			process.env.JWT_ACCESS_SECRET,
+			{ expiresIn: "10m" },
+			(err, token) => {
+				if (err) {
+					res.status(500).send();
+					return;
+				}
+				callback(token);
+			},
+		);
+	};
+
+	verifyRefresh((decodedRefresh) =>
+		createAccessToken(decodedRefresh, (token) => {
+			res.status(200).json({ access_token: token });
+		}),
+	);
 };
 
 function makeGoogleSsoCall(accessToken, callback) {
@@ -65,4 +103,4 @@ function makeGoogleSsoCall(accessToken, callback) {
 		});
 }
 
-module.exports = { loginRoute };
+module.exports = { loginRoute, refreshRoute };

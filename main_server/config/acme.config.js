@@ -1,4 +1,3 @@
-const JWT_COOKIE_NAME = "acme_session_token";
-const JWT_CLIENT_COOKIE_NAME = "acme_client_token";
+const JWT_REFRESH_COOKIE_NAME = "acme_refresh_token";
 
-module.exports = { JWT_COOKIE_NAME, JWT_CLIENT_COOKIE_NAME };
+module.exports = { JWT_REFRESH_COOKIE_NAME };
