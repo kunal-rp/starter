@@ -32,7 +32,10 @@ export default function Header(props) {
 				{user ? (
 					<div className="flex flex-row h-fit bg-primary p-2 rounded-md text-white items-center space-x-5">
 						<span>Goto App</span>
-						<img src={user.picture} className="h-[50px]" />
+						<img
+							src={user.picture}
+							className="h-[30px] rounded-2xl"
+						/>
 					</div>
 				) : (
 					<Link
