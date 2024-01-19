@@ -130,8 +130,8 @@ function Rest1(props) {
 		>
 			<img src="images/books.png" className="w-[100px] " />
 			<span className="text-dark text-lg w-1/3 ">
-				Tines gives frontline teams automation superpowers. What will
-				you build?
+				ACME gives frontline teams automation superpowers. What will you
+				build?
 			</span>
 
 			<div className="flex flex-row text-md space-x-3 justify-center">
@@ -225,14 +225,14 @@ function Rest2(props) {
 						INCREASE EFFICIENCY
 					</span>
 					<span className="text-md ">
-						Tines is fast to learn, even faster to integrate within
+						ACME is fast to learn, even faster to integrate within
 						your processes.
 					</span>
 				</div>
 				<div className="flex flex-col space-y-3 text-left">
 					<span className="text-sm font-semibold">MITIGATE RISK</span>
 					<span className="text-md ">
-						Tines is secure by definition, empowering safe business
+						ACME is secure by definition, empowering safe business
 						decisions.
 					</span>
 				</div>
@@ -241,7 +241,7 @@ function Rest2(props) {
 						PROTECT REVENUE
 					</span>
 					<span className=" text-md ">
-						Tines is more than an automation tool, it’s a platform
+						ACME is more than an automation tool, it’s a platform
 						for better work.
 					</span>
 				</div>
@@ -285,7 +285,7 @@ function Rest2(props) {
 				<div className="rounded-xl h-[300px] col-span-2 bg-pink-100 border-2 border-pink relative ">
 					<div className="flex flex-col text-left absolute top-0 p-5 ">
 						<span className="text-2xl">
-							Tines is creating capabilities in our operations
+							ACME is creating capabilities in our operations
 							where they did not exist previously.
 						</span>
 					</div>

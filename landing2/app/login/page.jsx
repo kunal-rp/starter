@@ -16,7 +16,6 @@ export default function Page() {
 
 	useEffect(() => {
 		if (user) {
-			console.log("user present");
 			window.location.replace(process.env.NEXT_PUBLIC_MAIN_APP_URL);
 		}
 	}, [user]);
