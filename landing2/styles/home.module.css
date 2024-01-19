@@ -1,0 +1,16 @@
+.container {
+	background: #d1cec5;
+}
+
+.main {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: left;
+	width: fit-content;
+	margin: auto;
+}
+
+.profile {
+	object-fit: cover;
+}
