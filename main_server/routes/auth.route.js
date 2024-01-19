@@ -1,35 +1,50 @@
 var https = require("https");
 var jwt = require("jsonwebtoken");
 
+const DB_UTIL = require("../db/util.js");
+
 var JWT_CONFIG = require("../config/acme.config.js");
 var GOOGLE_CONFIG = require("../config/google.config.js");
 
 const loginRoute = (req, res) => {
 	if (!req.body.googleAccessToken) {
-		res.status(400).send();
+		res.status(400).send("Missing External Access Token");
 		return;
 	}
 
 	makeGoogleSsoCall(req.body.googleAccessToken, (profile, err) => {
 		if (err) {
-			res.status(500).send();
+			res.status(500).send("Invalid External Access Token");
 			return;
 		}
 
-		jwt.sign(profile, process.env.JWT_REFRESH_SECRET, (err, token) => {
+		verifyUserInDataBase(profile.email, (err, user) => {
 			if (err) {
-				res.status(500).send();
+				res.status(500).send("User not registered in database");
 				return;
 			}
-			res.cookie(JWT_CONFIG.JWT_REFRESH_COOKIE_NAME, token, {
-				maxAge: 900000,
-				httpOnly: true,
-				Path: "/",
+
+			profile.user_id = user.user_id;
+
+			jwt.sign(profile, process.env.JWT_REFRESH_SECRET, (err, token) => {
+				if (err) {
+					res.status(500).send("Error while generating access token");
+					return;
+				}
+				res.cookie(JWT_CONFIG.JWT_REFRESH_COOKIE_NAME, token, {
+					maxAge: 900000,
+					httpOnly: true,
+					Path: "/",
+				});
+				res.status(200).send("login successful");
 			});
-			res.status(200).send("login successful");
 		});
 	});
 };
+
+function verifyUserInDataBase(email, callback) {
+	DB_UTIL.getUserInfo(email, (err, user) => callback(err, user));
+}
 
 const logoutRoute = (req, res) => {
 	res.clearCookie(JWT_CONFIG.JWT_REFRESH_COOKIE_NAME);

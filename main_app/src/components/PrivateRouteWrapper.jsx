@@ -27,8 +27,8 @@ export default function PrivateRouteWrapper(props) {
 	}, []);
 
 	useEffect(() => {
-		console.log(acmeAccessToken, fetchAcmeAccessTokenState, error);
-		if (fetchAcmeAccessTokenState === "FAIL") setError(true);
+		if (fetchAcmeAccessTokenState === "FAIL")
+			setError(new Error("Fail on fetching access token"));
 	}, [fetchAcmeAccessTokenState, error]);
 
 	// error, redirect immediantly to landing

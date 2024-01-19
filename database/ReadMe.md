@@ -1,0 +1,1 @@
+[how to auth with `mongosh`](https://www.mongodb.com/docs/mongodb-shell/connect/#connect-with-authentication:~:text=For%20example%2C%20to%20authenticate%20as%20user%20alice%20on%20the%20admin%20database%2C%20run%20the%20following%20command%3A) , username and password in docker-compose.yml

@@ -21,6 +21,7 @@ const jwtMiddleware = (req, res, next) => {
 		process.env.JWT_ACCESS_SECRET,
 		function (err, decoded) {
 			if (err) {
+				res.clearCookie(JWT_CONFIG.JWT_REFRESH_COOKIE_NAME);
 				res.status(401).send("Invalid Credentials");
 			} else {
 				req.decodedJwt = decoded;

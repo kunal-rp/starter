@@ -44,12 +44,16 @@ export default function ProjectModality(props) {
 							<div
 								className="flex flex-row w-full text-center hover:bg-gray-300"
 								onClick={() => {
-									setProjectId(project.id);
+									setProjectId(project.project_id);
 									setProjectModality(false);
 								}}
 							>
-								<span className="w-1/2">{project.id}</span>
-								<span className="w-1/2">{project.title}</span>
+								<span className="w-1/2">
+									{project.project_id}
+								</span>
+								<span className="w-1/2">
+									{project.project_title}
+								</span>
 							</div>
 						))}
 					</LoadComponent>

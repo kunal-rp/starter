@@ -33,7 +33,6 @@ export default function Header(props) {
 	});
 
 	useEffect(() => {
-		console.log(fetchLogoutState);
 		if (fetchLogoutState === "SUCCESS")
 			window.location.replace(process.env.LANDING_URL);
 	}, [fetchLogoutState]);
@@ -64,13 +63,15 @@ export default function Header(props) {
 	useEffect(() => {
 		document.title =
 			(getCurrentProject()
-				? firstCap(getCurrentProject().title) + ": "
+				? firstCap(getCurrentProject().project_title) + ": "
 				: "") + firstCap(selectedHeader);
 	}, [selectedHeader, projectId, projectData]);
 
 	function getCurrentProject() {
 		return projectData && projectId
-			? projectData.filter((project) => project.id == projectId)[0]
+			? projectData.filter(
+					(project) => project.project_id == projectId,
+			  )[0]
 			: null;
 	}
 
@@ -94,7 +95,7 @@ export default function Header(props) {
 					<CircleStackIcon className="w-[20px] h-[20px]" />
 					<h1 className="text-md">
 						{getCurrentProject()
-							? getCurrentProject()["title"]
+							? getCurrentProject()["project_title"]
 							: null}
 					</h1>
 					<ChevronDownIcon className="w-[15px] h-[15px]" />

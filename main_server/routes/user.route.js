@@ -1,22 +1,25 @@
 const fs = require("fs");
 
+const DB_UTIL = require("../db/util.js");
+
 const userRoute = (req, res) => {
-	console.log("user route");
 	res.json(req.decodedJwt);
 };
 
 const projectRoute = (req, res) => {
-	console.log("project route");
-	readJSONFile("./data/projects.json", function (err, json) {
-		console.log(err);
-		if (err) {
-			throw err;
-		}
-		var result = {};
-		result.projects = json;
-		result.selected_project_id = json[1].id;
-		res.json(result);
-	});
+	try {
+		DB_UTIL.getProjectsForUser(
+			req.decodedJwt.user_id,
+			(err, projectData) => {
+				var result = {};
+				result.projects = projectData;
+				result.selected_project_id = projectData[0].project_id;
+				res.json(result);
+			},
+		);
+	} catch (e) {
+		res.status(500).send("Database Connection failure");
+	}
 };
 
 function readJSONFile(filename, callback) {
