@@ -1,0 +1,16 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: acme-landing-app
+    environment:
+      NEXT_PUBLIC_GOOGLE_ID: "436041114033-cdvk3n5iupk7h7vv0l9avg5a6itb47bf.apps.googleusercontent.com"
+      NEXT_PUBLIC_GOOGLE_SECRET: "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"
+      NEXT_PUBLIC_MAIN_SERVER_URL: "http://host.docker.internal:4000"
+      NEXT_PUBLIC_MAIN_APP_URL: "http://host.docker.internal:8080"
+      NEXT_PUBLIC_JWT_SECRET: "acme jwt secret 8888"
+    ports:
+      - "3000:3000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

@@ -33,7 +33,9 @@ export default function PrivateRouteWrapper(props) {
 
 	// error, redirect immediantly to landing
 	if (error) {
+		console.log("error", error);
 		window.location.replace(process.env.LANDING_URL);
+		return <></>;
 	}
 
 	// Access Token still needs to be attempted

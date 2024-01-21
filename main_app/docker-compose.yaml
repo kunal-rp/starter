@@ -1,18 +1,17 @@
 version: "3"
 services:
   api:
-    image: acme-main-server-app
+    image: acme-main-app
     environment:
-      JWT_REFRESH_SECRET: "acme refresh jwt secret 8888"
-      JWT_ACCESS_SECRET: "acme access jwt secret 8888"
-      MONGO_URI: "mongodb://helpdev:123456@host.docker.internal:27017/"
+      SERVER_URL: "http://host.docker.internal:4000"
+      LANDING_URL: "http://host.docker.internal:3000"
     build:
       context: .
       dockerfile: Dockerfile
     networks:
       - backend
     ports:
-      - "4000:4000"
+      - "8080:8080"
     extra_hosts:
       - "host.docker.internal:host-gateway"
   web-cli:
@@ -20,7 +19,3 @@ services:
     networks:
       - backend
     command: sh
-
-networks:
-  backend:
-    driver: bridge

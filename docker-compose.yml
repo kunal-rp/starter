@@ -1,0 +1,47 @@
+version: "3"
+services:
+  app:
+    image: acme-main-app
+    environment:
+      SERVER_URL: "http://host.docker.internal:4000"
+      LANDING_URL: "http://host.docker.internal:3000"
+    build: ./main_app
+    ports:
+      - "8080:8080"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+  server:
+    image: acme-main-server-app
+    environment:
+      JWT_REFRESH_SECRET: "acme refresh jwt secret 8888"
+      JWT_ACCESS_SECRET: "acme access jwt secret 8888"
+      MONGO_URI: "mongodb://helpdev:123456@host.docker.internal:27017/"
+    build:
+      context: ./main_server/
+    ports:
+      - "4000:4000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+  landing:
+    build:
+      context: ./landing2/
+    container_name: acme-landing-app
+    environment:
+      NEXT_PUBLIC_GOOGLE_ID: "436041114033-cdvk3n5iupk7h7vv0l9avg5a6itb47bf.apps.googleusercontent.com"
+      NEXT_PUBLIC_GOOGLE_SECRET: "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"
+      NEXT_PUBLIC_MAIN_SERVER_URL: "http://host.docker.internal:4000"
+      NEXT_PUBLIC_MAIN_APP_URL: "http://host.docker.internal:8080"
+      NEXT_PUBLIC_JWT_SECRET: "acme jwt secret 8888"
+    ports:
+      - "3000:3000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+  mongo:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: helpdev
+      MONGO_INITDB_ROOT_PASSWORD: 123456
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./database/docker-entrypoint-initdb.d/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
