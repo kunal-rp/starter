@@ -2,6 +2,8 @@ const fs = require("fs");
 
 const DB_UTIL = require("../db/util.js");
 
+var GOOGLE_CONFIG = require("../config/google.config.js");
+
 const userRoute = (req, res) => {
 	res.json(req.decodedJwt);
 };
@@ -36,4 +38,13 @@ function readJSONFile(filename, callback) {
 	});
 }
 
-module.exports = { userRoute, projectRoute };
+async function addToWaitListRoute() {
+	try {
+		const auth = await GOOGLE_CONFIG.getAuthToken();
+		responses = await GOOGLE_CONFIG.appendEmailToSheet(auth);
+	} catch (error) {
+		console.log(error.message, error.stack);
+	}
+}
+
+module.exports = { userRoute, projectRoute, addToWaitListRoute };

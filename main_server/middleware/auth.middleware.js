@@ -2,7 +2,7 @@ var jwt = require("jsonwebtoken");
 
 var JWT_CONFIG = require("../config/acme.config.js");
 
-const NON_JWT_APIS = ["/login", "/refresh"];
+const NON_JWT_APIS = ["/login", "/refresh", "/addToWaitlist"];
 
 const jwtMiddleware = (req, res, next) => {
 	if (NON_JWT_APIS.includes(req.path) || req.method === "OPTIONS") {
