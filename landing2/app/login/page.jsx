@@ -6,9 +6,13 @@ import { googleLogout, useGoogleLogin, GoogleLogin } from "@react-oauth/google";
 import { acmeAccessTokenState } from "../../src/recoil.jsx";
 import useUser from "../../src/useUser.jsx";
 import useLoginManager from "../../src/useLoginManager.jsx";
+import useAccessTokenManager from "../../src/useAccessTokenManager.jsx";
 
 export default function Page() {
-	const [setGoogleAccessToken, loginError] = useLoginManager();
+	const [attemptFetchAccessToken] = useAccessTokenManager();
+	const [setGoogleAccessToken, loginError] = useLoginManager(
+		attemptFetchAccessToken,
+	);
 
 	const [user, fetchUser] = useUser();
 
@@ -23,12 +27,16 @@ export default function Page() {
 	const acmeAccessToken = useRecoilValue(acmeAccessTokenState);
 
 	useEffect(() => {
-		if (acmeAccessToken)
+		if (acmeAccessToken) {
 			window.location.replace(process.env.NEXT_PUBLIC_MAIN_APP_URL);
+		}
+		console.log(acmeAccessToken);
 	}, [acmeAccessToken]);
 
 	const login = useGoogleLogin({
-		onSuccess: (user) => setGoogleAccessToken(user.access_token),
+		onSuccess: (user) => {
+			setGoogleAccessToken(user.access_token);
+		},
 		onError: (error) => alert("Login Failed:", error),
 	});
 

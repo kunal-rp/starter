@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export default function useLoginManager() {
+export default function useLoginManager(successCallback) {
 	const [googleAccessToken, setGoogleAccessToken] = useState(null);
 
 	const [error, setError] = useState(null);
@@ -21,7 +21,8 @@ export default function useLoginManager() {
 					if (error.response) {
 						setError(error.response.data); // => the response payload
 					}
-				});
+				})
+				.then(() => successCallback());
 		}
 	}, [googleAccessToken]);
 
