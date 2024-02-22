@@ -1,4 +1,5 @@
 const fs = require("fs");
+var validator = require("email-validator");
 
 const DB_UTIL = require("../db/util.js");
 
@@ -38,13 +39,17 @@ function readJSONFile(filename, callback) {
 	});
 }
 
-async function addToWaitListRoute() {
+function emailOnWaitlist(req, res) {
 	try {
-		const auth = await GOOGLE_CONFIG.getAuthToken();
-		responses = await GOOGLE_CONFIG.appendEmailToSheet(auth);
-	} catch (error) {
-		console.log(error.message, error.stack);
+		if (validator.validate(req.body.email)) {
+			console.log(req.body.email);
+			GOOGLE_CONFIG.addToWaitListRoute(req.body.email).then(() =>
+				res.status(200).send(),
+			);
+		} else res.status(200).send();
+	} catch (e) {
+		res.status(500).send("Failed to all to waitlist");
 	}
 }
 
-module.exports = { userRoute, projectRoute, addToWaitListRoute };
+module.exports = { userRoute, projectRoute, emailOnWaitlist };

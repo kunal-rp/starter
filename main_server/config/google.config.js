@@ -19,24 +19,7 @@ async function getAuthToken() {
 	return authToken;
 }
 
-async function getSpreadSheet(auth) {
-	const res = await sheets.spreadsheets.get({
-		spreadsheetId: GOOGLE_SHEET_ID,
-		auth,
-	});
-	return res;
-}
-
-async function getSpreadSheetValues({ auth, sheetName }) {
-	const res = await sheets.spreadsheets.values.get({
-		spreadsheetId: GOOGLE_SHEET_ID,
-		auth,
-		range: sheetName,
-	});
-	return res;
-}
-
-async function appendEmailToSheet(auth) {
+async function appendEmailToSheet(auth, email) {
 	const res = await sheets.spreadsheets.values.append({
 		spreadsheetId: GOOGLE_SHEET_ID,
 		auth,
@@ -45,9 +28,14 @@ async function appendEmailToSheet(auth) {
 		insertDataOption: "INSERT_ROWS",
 		resource: {
 			majorDimension: "ROWS",
-			values: [["test@gmail.com", Date.now()]],
+			values: [[email, Date().toLocaleString()]],
 		},
 	});
+}
+
+async function addToWaitListRoute(email) {
+	const auth = await getAuthToken();
+	return await appendEmailToSheet(auth, email);
 }
 
 module.exports = {
@@ -56,7 +44,5 @@ module.exports = {
 	GOOGLE_SHEET_ID,
 	GOOGLE_SHEET_NAME,
 	getAuthToken,
-	getSpreadSheet,
-	getSpreadSheetValues,
-	appendEmailToSheet,
+	addToWaitListRoute,
 };

@@ -31,6 +31,7 @@ app.use(AUTH_MIDDLEWARE.jwtMiddleware);
 
 app.get("/projects", USER_ROUTE.projectRoute);
 app.get("/user", USER_ROUTE.userRoute);
+app.post("/emailOnWaitList", USER_ROUTE.emailOnWaitlist);
 
 app.get("/image", IMAGE_ROUTE.imageRoute);
 app.post("/upload", IMAGE_ROUTE.uploadImageRoute);
@@ -46,5 +47,3 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
-
-USER_ROUTE.addToWaitListRoute();
