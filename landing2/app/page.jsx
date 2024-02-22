@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Tinos } from "next/font/google";
@@ -14,6 +14,8 @@ import Header from "./Header.jsx";
 import RootAnimation from "../src/animation/RootAnimation.jsx";
 import ScrollPercentageAnimation from "../src/animation/ScrollPercentageAnimation.jsx";
 
+import useEmailWaitlist from "../src/useEmailWaitlist.jsx";
+
 export default function AnimationPage(props) {
 	const pathName = usePathname();
 
@@ -23,6 +25,8 @@ export default function AnimationPage(props) {
 
 			<Rest1 className=" w-full min-h-[100vh] bg-white" />
 			<Rest2 className=" w-full min-h-[100vh] bg-white" />
+
+			<JoinWaitlist className="w-full h-fit bg-primary" />
 
 			<CustomHeader className="fixed top-0 right-0 w-full h-fit" />
 
@@ -361,6 +365,60 @@ function RightOverlayBox(props) {
 				"h-full w-[85%] top-0 bg-primary-400 left-[15%]",
 				props.children,
 			)}
+		</div>
+	);
+}
+
+function JoinWaitlist(props) {
+	const [email, setEmail] = useState("");
+
+	const [success, setSuccess] = useState(false);
+
+	const [attemptEmail, error] = useEmailWaitlist(() => setSuccess(true));
+
+	function ValidateEmail(input) {
+		var validRegex =
+			/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+		return input.match(validRegex);
+	}
+
+	return (
+		<div
+			className={
+				props.className +
+				" flex flex-col space-y-5 text-center items-center p-10 w-full"
+			}
+		>
+			<input
+				type="email"
+				value={email}
+				onChange={(e) => setEmail(e.target.value)}
+				pattern=".+@example\.com"
+				size="30"
+				placeholder="your@test.com"
+				className="rounded-xl text-center"
+				required
+			/>
+			{!success && error ? (
+				<div className="w-fit p-2 text-white bg-red-400 rounded-md">
+					{error}
+				</div>
+			) : null}
+			{success ? (
+				<div className="w-fit p-2 text-white bg-green-400 rounded-md">
+					Email Added
+				</div>
+			) : null}
+
+			<button
+				className="text-primary bg-white p-2
+							rounded-md disabled:bg-gray-300"
+				disabled={!ValidateEmail(email) || error || success}
+				onClick={() => attemptEmail(email)}
+			>
+				Join the Waitlist
+			</button>
 		</div>
 	);
 }
